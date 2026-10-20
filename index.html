@@ -899,6 +899,95 @@
       .location-link:hover, .location-link:focus-visible { transform:none; }
     }
 
+
+
+    /* =============================================================
+       V5 · TEXTURA METÁLICA DE LA INVITACIÓN IMPRESA
+
+       Fondo real: assets/fondo.jpeg (pequeño patrón de papel plateado).
+       Se repite para no estirarlo y se suaviza con un velo marfil.
+
+       AJUSTES:
+       --texture-size: tamaño visual de repetición (ej.: 110px o 180px).
+       --texture-veil: 0 = textura intensa; 1 = textura casi invisible.
+       --texture-veil-light: para secciones de lectura prolongada.
+       ============================================================= */
+    :root {
+      --texture-size: 114px;
+      --texture-veil: .73;
+      --texture-veil-light: .82;
+    }
+
+    /* El JPEG sustituye el papel sintético; quitamos el ruido SVG anterior. */
+    body::before { display: none; }
+
+    body {
+      background-image:
+        linear-gradient(rgb(246 241 231 / var(--texture-veil)), rgb(246 241 231 / var(--texture-veil))),
+        url("assets/fondo.jpeg");
+      background-repeat: no-repeat, repeat;
+      background-size: cover, var(--texture-size) auto;
+    }
+
+    /* Primera impresión: textura visible, pero el título manda. */
+    .hero-sticky {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 27% 35%, rgba(255, 253, 248, .42), transparent 60%),
+        linear-gradient(rgb(246 241 231 / var(--texture-veil)), rgb(246 241 231 / var(--texture-veil))),
+        url("assets/fondo.jpeg");
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-size: cover, cover, var(--texture-size) auto;
+      background-position: center, center, left top;
+    }
+
+    /* Zona de datos: velo mayor para las direcciones y botones. */
+    .details {
+      background-color: var(--paper-light);
+      background-image:
+        linear-gradient(rgb(249 246 239 / var(--texture-veil-light)), rgb(249 246 239 / var(--texture-veil-light))),
+        url("assets/fondo.jpeg");
+      background-repeat: no-repeat, repeat;
+      background-size: cover, var(--texture-size) auto;
+    }
+
+    .closing {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 50% 32%, rgba(255, 253, 247, .42), transparent 72%),
+        linear-gradient(rgb(246 241 231 / var(--texture-veil)), rgb(246 241 231 / var(--texture-veil))),
+        url("assets/fondo.jpeg");
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-size: cover, cover, var(--texture-size) auto;
+    }
+
+    /* La nota mantiene su contraste y carácter destacado. */
+    .gift-note { background: rgba(251, 248, 241, .88); }
+
+    footer {
+      background-image:
+        linear-gradient(rgb(246 241 231 / var(--texture-veil-light)), rgb(246 241 231 / var(--texture-veil-light))),
+        url("assets/fondo.jpeg");
+      background-repeat: no-repeat, repeat;
+      background-size: cover, var(--texture-size) auto;
+    }
+
+    @media (max-width: 980px) {
+      /* En móvil, la escena de agradecimiento también tiene textura,
+         pero el velo se mantiene fuerte para facilitar la lectura. */
+      .gratitude {
+        background-color: var(--paper-light);
+        background-image:
+          linear-gradient(to bottom,
+            rgba(246, 241, 231, .94),
+            rgba(246, 241, 231, .82) 32%,
+            rgba(246, 241, 231, .78) 100%),
+          url("assets/fondo.jpeg");
+        background-repeat: no-repeat, repeat;
+        background-size: cover, var(--texture-size) auto;
+      }
+    }
+
   </style>
 
 </head>
@@ -991,7 +1080,7 @@
 
         <div class="date reveal" aria-label="Fecha: 7 de noviembre">
 
-          <span class="date__little">Nos vemos el primer sábado</span>
+          <span class="date__little">Nos vemos el primer Sábado</span>
 
           <span class="date__day" id="event-day">07</span>
 
@@ -1089,21 +1178,38 @@
 
         </aside>
 
-      <!--
+      
 
-        <p class="closing__message reveal">Será una alegría compartir contigo este momento. ¿Me confirmas tu asistencia?</p>
+        
+<p class="closing__message reveal">
+  Será una alegría compartir contigo este momento.
+  ¿Me confirmas tu asistencia?
+</p>
 
-        <button class="cta reveal" id="open-rsvp" type="button">
+<a
+  class="cta reveal"
+  href="https://docs.google.com/forms/d/e/1FAIpQLSdk_XhFuSuTk6BXWQO0SPBbocNcIaNvQuGS4Ji_-nEdYqYLYQ/viewform?usp=publish-editor"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Confirmar asistencia en Google Forms"
+>
+  Confirmar mi asistencia
 
-          Preparar confirmación
+  <svg viewBox="0 0 24 24"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="1.7"
+       aria-hidden="true">
+    <path d="M4 12h16M13 5l7 7-7 7"/>
+  </svg>
+</a>
 
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
+<p class="closing__notice reveal">
+  Confirma tu asistencia completando
+  un breve formulario. ¡Te espero!
+</p>
 
-        </button>
-
-        <p class="closing__notice reveal">Prepara un mensaje para copiar y compartir con Gabriela.</p>
-
-        -->
+        
 
       </div>
 
